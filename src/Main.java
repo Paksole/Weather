@@ -15,8 +15,8 @@ public class Main {
 
         HttpClient httpClient = HttpClient.newHttpClient();
 
-//        Сделайте GET запрос используя путь: https://api.weather.yandex.ru/v2/forecast.
-        System.out.println("Задание 1");
+
+        System.out.println("Task 1");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.weather.yandex.ru/v2/forecast"))
                 .header("X-Yandex-API-Key", apiKey)
@@ -31,9 +31,8 @@ public class Main {
             System.err.println("Error making HTTP request: " + e.getMessage());
         }
 
-//        Передайте координаты точки lat и lon, в которой хотите определить погоду,
-//        например: https://api.weather.yandex.ru/v2/forecast?lat=55.75&lon=37.62.
-        System.out.println("Задание 2");
+
+        System.out.println("Task 2");
         double lat = 55.75, lon=37.62;
 
         HttpRequest request2 = HttpRequest.newBuilder()
@@ -51,13 +50,12 @@ public class Main {
             System.err.println("Error making HTTP request: " + e.getMessage());
         }
 
-//        Выведите на экран все данные (весь ответ от сервиса в формате json)
-//        и отдельно температуру (находится в fact {temp}).
-        System.out.println("Задание 3");
+
+        System.out.println("Task 3");
         HttpResponse<String> response2 = httpClient.send(request2, HttpResponse.BodyHandlers.ofString());
         if (response2.statusCode() == 200) {
             String body = response2.body();
-            System.out.println("Весь ответ от сервиса в формате JSON:");
+            System.out.println("Г‚ГҐГ±Гј Г®ГІГўГҐГІ Г®ГІ Г±ГҐГ°ГўГЁГ±Г  Гў ГґГ®Г°Г¬Г ГІГҐ JSON:");
             System.out.println(body);
             String jsonResponse = body.toString();
             int startIndex = jsonResponse.indexOf("\"temp\":") + "\"temp\":".length();
@@ -66,14 +64,13 @@ public class Main {
                 endIndex = jsonResponse.length();
             }
             String temperature = jsonResponse.substring(startIndex, endIndex);
-            System.out.println("Текущая температура: " + temperature + "°C");
+            System.out.println("Г’ГҐГЄГіГ№Г Гї ГІГҐГ¬ГЇГҐГ°Г ГІГіГ°Г : " + temperature + "В°C");
         } else {
-            System.err.println("Произошла ошибка при выполнении запроса. Код ошибки: " + response2.statusCode());
+            System.err.println("ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГЁ Г§Г ГЇГ°Г®Г±Г . ГЉГ®Г¤ Г®ГёГЁГЎГЄГЁ: " + response2.statusCode());
         }
 
-//        Вычислить среднюю температуру за определенный период
-//        (передать limit и найти среднее арифметическое температуры).
-        System.out.println("Задание 4");
+
+        System.out.println("Task 4");
 
         int limit = 7;
         double[] temperatures = new double[limit];
@@ -98,14 +95,14 @@ public class Main {
 
             }
             else {
-               System.err.println("Произошла ошибка при выполнении запроса. Код ошибки: " + responseWeek.statusCode());
+               System.err.println("ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГЁ Г§Г ГЇГ°Г®Г±Г . ГЉГ®Г¤ Г®ГёГЁГЎГЄГЁ: " + responseWeek.statusCode());
             }
         }
 
 
     double averageTemperature = sumTemperatures / temperatures.length;
 
-        System.out.printf("Средняя температура за %d дней: %.2f°C\n", limit, averageTemperature);
+        System.out.printf("Г‘Г°ГҐГ¤Г­ГїГї ГІГҐГ¬ГЇГҐГ°Г ГІГіГ°Г  Г§Г  %d Г¤Г­ГҐГ©: %.2fВ°C\n", limit, averageTemperature);
 
     }
 }
