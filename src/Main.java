@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        String apiKey = "662a6c2d-3036-4fef-b69b-f687913729d2";
+        String apiKey = "662a6c2d-3036-4fef-b69b-f687913729d2XXX";
 
         HttpClient httpClient = HttpClient.newHttpClient();
 
